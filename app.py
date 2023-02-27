@@ -10,6 +10,6 @@ def index():
 def say_hello():
   return 'Hello from Server'
 
+
 if __name__ == '__main__':
-    #server start port
-    app.run(port=5000)
+    app.run(host='0.0.0.0')
