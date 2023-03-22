@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FlaskBlog</title>
+    <title>OpenCV | Face Detection | Emmanuel Allan</title>
     <link rel="stylesheet" href="{{ url_for('static', filename= '/css/styles.css') }}">
 
     <script src="{{url_for('static', filename='/js/index.js')}}"></script>
@@ -11,15 +11,16 @@
 <body>
    <h1>Welcome to Flask OpenCV</h1>
    
-  <div class="camera">
-    <video id="video">Video stream not available.</video>
-    <button id="startbutton">Take photo</button>
+  <div class="camera hide">
+    <video id="video" >Video stream not available.</video>
   </div>
-  <canvas id="canvas"> </canvas>
+  <canvas id="canvas" class='hide'> </canvas>
   <div class="output">
     <img id="photo" alt="The screen capture will appear in this box." />
   </div>
-
+<footer>
+  Made with 💖 by Emmanuel Allan
+</footer>
 </div>
 
 
