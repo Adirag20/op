@@ -10,7 +10,7 @@ function App() {
   return (
     <div>
       <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <Camera />
+      <Camera email="pixiemj00@gmail.com" />
     </div>
   );
 }

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+// import.meta.env.VITE_SOME_KEY;
 
-function Camera({ BACKEND_API, email }) {
+function Camera({ email }) {
   const [source, setSource] = useState("");
+  const BACKEND_API = import.meta.env.VITE_BACKEND_API;
   // The width and height of the captured photo. We will set the
   // width to the value defined here, but the height will be
   // calculated based on the aspect ratio of the input stream.
@@ -62,7 +64,7 @@ function Camera({ BACKEND_API, email }) {
           takepicture();
         };
         //   To change frame rate
-        recorder.start(500);
+        recorder.start(10000);
       })
       .catch((err) => {
         console.error(`An error occurred: ${err}`);
@@ -112,7 +114,7 @@ function Camera({ BACKEND_API, email }) {
 
     const data = canvas.toDataURL("image/png");
     // photo.setAttribute("src", data);
-    setSource(data);
+    // setSource(data);
   }
 
   // Capture a photo by fetching the current contents of the video
@@ -130,7 +132,9 @@ function Camera({ BACKEND_API, email }) {
 
       const data = canvas.toDataURL("image/png");
       // photo.setAttribute("src", data);
-      setSource(data);
+      //   setSource(data);
+      console.log("Email", email);
+      console.log("backend api", BACKEND_API);
       if (email !== undefined) {
         fetch(`${BACKEND_API}/receive/${email}`, {
           method: "POST",
@@ -139,6 +143,7 @@ function Camera({ BACKEND_API, email }) {
           .then((response) => response.json())
           .then((result) => {
             console.log("Success:", result);
+            setSource(result.image);
           })
           .catch((error) => {
             console.error("Error:", error);
@@ -161,6 +166,7 @@ function Camera({ BACKEND_API, email }) {
         <video id="video">Video stream not available.</video>
       </div>
       <canvas id="canvas"></canvas>
+      <img src={source} />
     </div>
   );
 }
