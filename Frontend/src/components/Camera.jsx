@@ -141,23 +141,27 @@ function Camera({ email }) {
       headers.append("GET", "POST", "OPTIONS");
 
       if (email !== undefined) {
-        fetch(`${BACKEND_API}/receive/${email}`, {
-          method: "POST",
-          body: data,
-          headers: headers,
-        })
-          .then((response) => response.json())
-          .then((result) => {
-            // console.log("Success:", result);
-            setSource(result.image);
+        try {
+          fetch(`${BACKEND_API}/receive/${email}`, {
+            method: "POST",
+            body: data,
+            headers: headers,
           })
-          .catch((err) => {
-            // console.log("Error:", error);
-            // if (error.response.status === 500) {
-            //   console.log("error 500");
-            // }
-            console.log(err);
-          });
+            .then((response) => response.json())
+            .then((result) => {
+              // console.log("Success:", result);
+              setSource(result.image);
+            })
+            .catch((err) => {
+              // console.log("Error:", error);
+              // if (error.response.status === 500) {
+              //   console.log("error 500");
+              // }
+              console.log(err);
+            });
+        } catch {
+          console.log("Cannot fetch from server");
+        }
       }
       // console.log("API request sent");
       // console.log(data);
