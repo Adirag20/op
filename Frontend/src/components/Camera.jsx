@@ -43,7 +43,7 @@ function Camera({ email }) {
   }
 
   function startup() {
-    console.log("started video");
+    // console.log("started video");
     if (showViewLiveResultButton()) {
       return;
     }
@@ -133,8 +133,8 @@ function Camera({ email }) {
       const data = canvas.toDataURL("image/png");
       // photo.setAttribute("src", data);
       //   setSource(data);
-      console.log("Email", email);
-      console.log("backend api", BACKEND_API);
+      //   console.log("Email", email);
+      //   console.log("backend api", BACKEND_API);
       if (email !== undefined) {
         fetch(`${BACKEND_API}/receive/${email}`, {
           method: "POST",
@@ -142,11 +142,15 @@ function Camera({ email }) {
         })
           .then((response) => response.json())
           .then((result) => {
-            console.log("Success:", result);
+            // console.log("Success:", result);
             setSource(result.image);
           })
           .catch((error) => {
-            console.error("Error:", error);
+            // console.log("Error:", error);
+            if (error.response.status === 500) {
+              console.log("error 500");
+            }
+            console.log("err");
           });
       }
       // console.log("API request sent");

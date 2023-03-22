@@ -69,7 +69,7 @@ def receive(emailId):
 
     # Write Image from Base64 File
     
-    print("Entered")
+    # print("Entered")
     imgFile = open(f'./shots/{emailId}/{emailId}-feed.jpg', 'wb')
     imgFile.write(decodedData)
     imgFile.close()
