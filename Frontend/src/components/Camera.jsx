@@ -163,9 +163,11 @@ function Camera({ email }) {
   return (
     <div>
       <div>
-        <video id="video">Video stream not available.</video>
+        <video id="video" className="hidden">
+          Video stream not available.
+        </video>
       </div>
-      <canvas id="canvas"></canvas>
+      <canvas id="canvas" className="hidden"></canvas>
       <img src={source} />
     </div>
   );
