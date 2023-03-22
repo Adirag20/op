@@ -11,5 +11,6 @@ def say_hello():
   return 'Hello from Server'
 
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8080, debug=False)
+if __name__ == '__main__':
+    #server start port
+    app.run(host='0.0.0.0', port=5000)
