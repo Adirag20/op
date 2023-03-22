@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS, cross_origin
 import base64
 import os
@@ -17,7 +17,7 @@ except OSError as error:
 
 @app.route('/')
 def index():
-  return jsonify({'message':'Server works'})
+  return render_template('index.html')
   
 @app.route('/greet')
 def say_hello():
