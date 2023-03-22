@@ -30,3 +30,12 @@ Face detection app using OpenCV
 
 6 directories, 17 files
 ```
+### Docker setup
+``` 
+docker build -t emmanuelallan/opencv-flask:1.0 .
+docker run -p 5000:5000 emmanuelallan/opencv-flask:1.0
+```
+or
+``` 
+docker push emmanuelallan/opencv-flask:1.3
+```
