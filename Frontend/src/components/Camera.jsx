@@ -144,6 +144,7 @@ function Camera({ email }) {
         fetch(`${BACKEND_API}/receive/${email}`, {
           method: "POST",
           body: data,
+          headers: headers,
         })
           .then((response) => response.json())
           .then((result) => {
