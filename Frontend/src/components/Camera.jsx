@@ -150,12 +150,12 @@ function Camera({ email }) {
             // console.log("Success:", result);
             setSource(result.image);
           })
-          .catch((error) => {
+          .catch((err) => {
             // console.log("Error:", error);
-            if (error.response.status === 500) {
-              console.log("error 500");
-            }
-            console.log("err");
+            // if (error.response.status === 500) {
+            //   console.log("error 500");
+            // }
+            console.log(err);
           });
       }
       // console.log("API request sent");
