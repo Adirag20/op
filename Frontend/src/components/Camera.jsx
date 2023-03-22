@@ -131,10 +131,14 @@ function Camera({ email }) {
       context.drawImage(video, 0, 0, width, height);
 
       const data = canvas.toDataURL("image/png");
-      // photo.setAttribute("src", data);
-      //   setSource(data);
-      //   console.log("Email", email);
-      //   console.log("backend api", BACKEND_API);
+      headers.append("Content-Type", "application/json");
+      headers.append("Accept", "application/json");
+
+      headers.append("Access-Control-Allow-Origin", "http://localhost:5000");
+      headers.append("Access-Control-Allow-Credentials", "true");
+
+      headers.append("GET", "POST", "OPTIONS");
+
       if (email !== undefined) {
         fetch(`${BACKEND_API}/receive/${email}`, {
           method: "POST",

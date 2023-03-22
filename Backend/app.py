@@ -52,6 +52,7 @@ def detect_face(name):
     return encoded_string
 
 @app.route('/receive/<string:emailId>', methods=['POST'])
+# @cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
 def receive(emailId):
   # encoded_string = ""
   if emailId =="undefined":
@@ -85,7 +86,9 @@ def receive(emailId):
     # # now: encoding the data to json
     # # result: string
     # json_data = dumps(raw_data, indent=2)
-    return jsonify({"image": encoded_string})
+    response = jsonify({"image": encoded_string})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response 
       
   except:  
     pass
