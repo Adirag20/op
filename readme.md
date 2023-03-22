@@ -1,7 +1,8 @@
-# OpenCV
+# Face Detection using OpenCV
+Face detection app using OpenCV
 
-## Face detection app using OpenCV
-
+### Directory Structure
+```
 .
 ├── Backend
 │   ├── Dockerfile
@@ -28,3 +29,4 @@
 └── readme.md
 
 6 directories, 17 files
+```
