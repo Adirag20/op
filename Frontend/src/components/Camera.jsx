@@ -131,6 +131,7 @@ function Camera({ email }) {
       context.drawImage(video, 0, 0, width, height);
 
       const data = canvas.toDataURL("image/png");
+      let headers = new Headers();
       headers.append("Content-Type", "application/json");
       headers.append("Accept", "application/json");
 
