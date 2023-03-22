@@ -64,7 +64,7 @@ function Camera({ email }) {
           takepicture();
         };
         //   To change frame rate
-        recorder.start(10000);
+        recorder.start(500);
       })
       .catch((err) => {
         console.error(`An error occurred: ${err}`);
