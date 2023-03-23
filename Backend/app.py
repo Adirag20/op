@@ -59,59 +59,65 @@ def detect_face_deepface(name):
     pass
   # Filename
   filename = f"./shots/{name}/{name}-feed.jpg"
-  obj = DeepFace.analyze(img_path=filename, actions=['age','gender','emotion'])
-  
-  l = len(obj)
 
   # reading image
   img = cv2.imread(filename)
-  for i in range(l):
-    # getting coordinates of faces
-    x = obj[i]['region']['x'] 
-    y = obj[i]['region']['y'] 
-    w = obj[i]['region']['w'] 
-    h = obj[i]['region']['h'] 
-    # drawing box around faces
-    cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 2)
+  try: 
+    obj = DeepFace.analyze(img_path=filename, actions=['age','gender','emotion'])
     
-    # getting other details
-    gender = "Woman" if obj[i]['gender']['Woman']>50 else "Man"
-    age = obj[i]['age']
-    emotions = obj[i]['emotion']
-    emotions_len = len(obj[i]['emotion'])
+    l = len(obj)
+    for i in range(l):
+      # getting coordinates of faces
+      x = obj[i]['region']['x'] 
+      y = obj[i]['region']['y'] 
+      w = obj[i]['region']['w'] 
+      h = obj[i]['region']['h'] 
+      # drawing box around faces
+      cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 2)
+      
+      # getting other details
+      gender = "Woman" if obj[i]['gender']['Woman']>50 else "Man"
+      age = obj[i]['age']
+      emotions = obj[i]['emotion']
+      emotions_len = len(obj[i]['emotion'])
+      
+      # Drawing rectangle behind details
+      cv2.rectangle(img, (x+w+2,y), (x+w+110,y+160), (0,0,0), -1)
+      
+      # writing the age, emotion 
+      font = cv2.FONT_HERSHEY_SIMPLEX
+      fontScale = 0.5
+      cv2.putText(img, gender, (x+w+3,y+20), font, fontScale, (0, 255, 0), 1, cv2.LINE_AA)
+      cv2.putText(img, f"Age: {str(age)}", (x+w+3,y+40), font, fontScale, (0, 255, 0), 1, cv2.LINE_AA)
+      
+      #typing emotions
+      count = 70
+      emotions = dict(sorted(emotions.items(), key=lambda x: x[1], reverse=True))
+      
+      for emotion in emotions:
+        cv2.putText(img, f"{emotion}:{emotions[emotion].round(2)}", (x+w+3,y+count), font, fontScale, (0, 255, 0), 1, cv2.LINE_AA)
+        count+=20
+        if(count>150):
+            break
+          
+    # cv2.imwrite(f"./shots/{name}/{name}-face.jpg", img) 
+    # # cv2.rectangle(img, (x, y), (x+w, y+h), (255,0,0), 2)
+    # with open(f"./shots/{name}/{name}-face.jpg", "rb") as image_file:
+    #   encoded_string = base64.b64encode(image_file.read())
+    # Read the image in cv2 format
     
-    # Drawing rectangle behind details
-    cv2.rectangle(img, (x+w+2,y), (x+w+110,y+160), (0,0,0), -1)
-    
-    # writing the age, emotion 
-    font = cv2.FONT_HERSHEY_SIMPLEX
-    fontScale = 0.5
-    cv2.putText(img, gender, (x+w+3,y+20), font, fontScale, (0, 255, 0), 1, cv2.LINE_AA)
-    cv2.putText(img, f"Age: {str(age)}", (x+w+3,y+40), font, fontScale, (0, 255, 0), 1, cv2.LINE_AA)
-    
-    #typing emotions
-    count = 70
-    emotions = dict(sorted(emotions.items(), key=lambda x: x[1], reverse=True))
-    
-    for emotion in emotions:
-      cv2.putText(img, f"{emotion}:{emotions[emotion].round(2)}", (x+w+3,y+count), font, fontScale, (0, 255, 0), 1, cv2.LINE_AA)
-      count+=20
-      if(count>150):
-          break
-        
-  cv2.imwrite(f"./shots/{name}/{name}-face.jpg", img) 
-  # cv2.rectangle(img, (x, y), (x+w, y+h), (255,0,0), 2)
-  with open(f"./shots/{name}/{name}-face.jpg", "rb") as image_file:
-    encoded_string = base64.b64encode(image_file.read())
-  # Read the image in cv2 format
-  
-  # image = cv2.imread(filename)
+    # image = cv2.imread(filename)
 
-  # Convert the image to a byte string
-  # ret, buffer = cv2.imencode('.jpg', img)
-  # encoded_string = base64.b64encode(buffer)
-    
-  return encoded_string
+    # Convert the image to a byte string
+    ret, buffer = cv2.imencode('.jpg', img)
+    encoded_string = base64.b64encode(buffer)
+      
+    return encoded_string
+  except:
+    ret, buffer = cv2.imencode('.jpg', img)
+    encoded_string = base64.b64encode(buffer)
+    print(encoded_string[:10])
+    return encoded_string
   
 
 
@@ -128,36 +134,36 @@ def receive(emailId):
   except:
     pass
   # url = requests.get(request.data)
-  try:
-    url = request.data[22::]
-    decodedData = base64.b64decode(url + b'==')
+  # try:
+  url = request.data[22::]
+  decodedData = base64.b64decode(url + b'==')
 
-    # Write Image from Base64 File
-    
-    # print("Entered")
-    imgFile = open(f'./shots/{emailId}/{emailId}-feed.jpg', 'wb')
-    imgFile.write(decodedData)
-    imgFile.close()
-    # detect_face(emailId)
-    
-    encoded_string = detect_face_deepface(emailId)
-    encoded_string = 'data:image/jpeg;base64,'+str(encoded_string).split('\'')[1]
-    # print(encoded_string)
-    # optional: doing stuff with the data
-    # result here: some dict
-    # raw_data = {"image": encoded_string}
+  # Write Image from Base64 File
+  
+  # print("Entered")
+  imgFile = open(f'./shots/{emailId}/{emailId}-feed.jpg', 'wb')
+  imgFile.write(decodedData)
+  imgFile.close()
+  # detect_face(emailId)
+  
+  encoded_string = detect_face_deepface(emailId)
+  encoded_string = 'data:image/jpeg;base64,'+str(encoded_string).split('\'')[1]
+  # print(encoded_string)
+  # optional: doing stuff with the data
+  # result here: some dict
+  # raw_data = {"image": encoded_string}
 
-    # # now: encoding the data to json
-    # # result: string
-    # json_data = dumps(raw_data, indent=2)
-    response = jsonify({"image": encoded_string})
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response 
+  # # now: encoding the data to json
+  # # result: string
+  # json_data = dumps(raw_data, indent=2)
+  response = jsonify({"image": encoded_string})
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  return response 
       
-  except:  
-    pass
-  print("Received frame", emailId)
-  return jsonify({"image":str(encoded_string)})
+  # except:  
+  #   pass
+  # print("Received frame", emailId)
+  # return jsonify({"image":encoded_string})
 
 
 if __name__ == '__main__':
