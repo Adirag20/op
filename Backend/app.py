@@ -4,6 +4,7 @@ import base64
 import os
 import cv2
 from json import dumps
+from deepface import DeepFace
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -50,6 +51,69 @@ def detect_face(name):
     with open(f"./shots/{name}/{name}-face.jpg", "rb") as image_file:
       encoded_string = base64.b64encode(image_file.read())
     return encoded_string
+  
+def detect_face_deepface(name):
+  try:
+    os.mkdir(f'./shots/{name}')
+  except:
+    pass
+  # Filename
+  filename = f"./shots/{name}/{name}-feed.jpg"
+  obj = DeepFace.analyze(img_path=filename, actions=['age','gender','emotion'])
+  
+  l = len(obj)
+
+  # reading image
+  img = cv2.imread(filename)
+  for i in range(l):
+    # getting coordinates of faces
+    x = obj[i]['region']['x'] 
+    y = obj[i]['region']['y'] 
+    w = obj[i]['region']['w'] 
+    h = obj[i]['region']['h'] 
+    # drawing box around faces
+    cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 2)
+    
+    # getting other details
+    gender = "Woman" if obj[i]['gender']['Woman']>50 else "Man"
+    age = obj[i]['age']
+    emotions = obj[i]['emotion']
+    emotions_len = len(obj[i]['emotion'])
+    
+    # Drawing rectangle behind details
+    cv2.rectangle(img, (x+w+2,y), (x+w+110,y+160), (0,0,0), -1)
+    
+    # writing the age, emotion 
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    fontScale = 0.5
+    cv2.putText(img, gender, (x+w+3,y+20), font, fontScale, (0, 255, 0), 1, cv2.LINE_AA)
+    cv2.putText(img, f"Age: {str(age)}", (x+w+3,y+40), font, fontScale, (0, 255, 0), 1, cv2.LINE_AA)
+    
+    #typing emotions
+    count = 70
+    emotions = dict(sorted(emotions.items(), key=lambda x: x[1], reverse=True))
+    
+    for emotion in emotions:
+      cv2.putText(img, f"{emotion}:{emotions[emotion].round(2)}", (x+w+3,y+count), font, fontScale, (0, 255, 0), 1, cv2.LINE_AA)
+      count+=20
+      if(count>150):
+          break
+        
+  cv2.imwrite(f"./shots/{name}/{name}-face.jpg", img) 
+  # cv2.rectangle(img, (x, y), (x+w, y+h), (255,0,0), 2)
+  with open(f"./shots/{name}/{name}-face.jpg", "rb") as image_file:
+    encoded_string = base64.b64encode(image_file.read())
+  # Read the image in cv2 format
+  
+  # image = cv2.imread(filename)
+
+  # Convert the image to a byte string
+  # ret, buffer = cv2.imencode('.jpg', img)
+  # encoded_string = base64.b64encode(buffer)
+    
+  return encoded_string
+  
+
 
 @app.route('/receive/<string:emailId>', methods=['POST'])
 # @cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
@@ -76,7 +140,7 @@ def receive(emailId):
     imgFile.close()
     # detect_face(emailId)
     
-    encoded_string = detect_face(emailId)
+    encoded_string = detect_face_deepface(emailId)
     encoded_string = 'data:image/jpeg;base64,'+str(encoded_string).split('\'')[1]
     # print(encoded_string)
     # optional: doing stuff with the data

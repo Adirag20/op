@@ -1,32 +1,23 @@
-# Face Detection using OpenCV
-Face detection app using OpenCV
-
-### Directory Structure
-```
 .
-├── Backend
-│   ├── Dockerfile
-│   ├── **pycache**
-│   │   ├── app.cpython-310.pyc
-│   │   ├── app.cpython-38.pyc
-│   │   └── app.cpython-39.pyc
-│   ├── app.py
-│   └── requirements.txt
-├── Frontend
-│   ├── index.html
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── public
-│   │   └── vite.svg
-│   ├── src
-│   │   ├── App.css
-│   │   ├── App.jsx
-│   │   ├── assets
-│   │   │   └── react.svg
-│   │   ├── index.css
-│   │   └── main.jsx
-│   └── vite.config.js
-└── readme.md
+├── Dockerfile
+├── __pycache__
+│   ├── app.cpython-310.pyc
+│   ├── app.cpython-38.pyc
+│   └── app.cpython-39.pyc
+├── app.py
+├── haarcascade_frontalface_default.xml
+├── readme.md
+├── requirements.txt
+├── shots
+│   └── pixiemj00
+│       ├── pixiemj00-face.jpg
+│       └── pixiemj00-feed.jpg
+├── static
+│   ├── css
+│   │   └── styles.css
+│   └── js
+│       └── index.js
+└── templates
+    └── index.html
 
-6 directories, 17 files
-```
+7 directories, 13 files
