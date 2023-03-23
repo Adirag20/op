@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install libzbar0 -y
 # installing flask dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+RUN pip install deepface
 
 COPY ./ ./
 
