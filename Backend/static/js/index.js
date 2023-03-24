@@ -122,7 +122,7 @@
       context.drawImage(video, 0, 0, width, height);
 
       const data = canvas.toDataURL("image/png");
-      fetch(`/receive/pixiemj00`, {
+      fetch(`/opencv/pixiemj00`, {
         method: "POST",
         body: data,
       })
