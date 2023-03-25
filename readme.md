@@ -61,3 +61,7 @@ pip install opencv-python
 ```
 
 ## To run the app
+
+```
+flask --app app.py --debug run
+```

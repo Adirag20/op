@@ -53,7 +53,7 @@
           // const blob = event.data;
           takepicture();
         };
-        recorder.start(1000);
+        recorder.start(500);
         const element = document.getElementById("canvas");
         element.classList.add("hide");
       })
@@ -138,20 +138,6 @@
     } else {
       clearphoto();
     }
-  }
-
-  function stopCamera() {
-    // Get the video element
-    const videoTag = document.getElementById("video");
-
-    // Get the button element
-    const button = document.getElementById("id");
-
-    // Add an event listener to the button element
-    button.addEventListener("click", function () {
-      // Pause the video
-      videoTag.pause();
-    });
   }
 
   // Set up our event listener to run the startup process
