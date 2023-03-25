@@ -27,32 +27,6 @@ Face detection app using OpenCV
 │   │       └── index.js
 │   └── templates
 │       └── index.html
-├── Frontend
-│   ├── dist
-│   │   ├── assets
-│   │   │   ├── index-140bef59.css
-│   │   │   ├── index-e0e1258e.js
-│   │   │   └── react-35ef61ed.svg
-│   │   ├── index.html
-│   │   └── vite.svg
-│   ├── index.html
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── postcss.config.cjs
-│   ├── public
-│   │   └── vite.svg
-│   ├── readme.md
-│   ├── src
-│   │   ├── App.css
-│   │   ├── App.jsx
-│   │   ├── assets
-│   │   │   └── react.svg
-│   │   ├── components
-│   │   │   └── Camera.jsx
-│   │   ├── index.css
-│   │   └── main.jsx
-│   ├── tailwind.config.cjs
-│   └── vite.config.js
 └── readme.md
 
 15 directories, 33 files
@@ -62,6 +36,7 @@ Face detection app using OpenCV
 ### Docker setup
 
 ```
+cd Backend
 docker build -t emmanuelallan/opencv-flask:1.0 .
 docker run -p 5000:5000 emmanuelallan/opencv-flask:1.0
 ```
