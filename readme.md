@@ -45,3 +45,19 @@ or
 ```
 docker push emmanuelallan/opencv-flask:1.3
 ```
+
+## Installing Flask
+
+```
+py -3 -m pip install virtualenv
+py -3 -m venv venv
+cd venv
+cd Scripts
+activate
+cd ..
+cd ..
+pip install Flask
+pip install opencv-python
+```
+
+## To run the app
