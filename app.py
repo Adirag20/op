@@ -5,17 +5,19 @@ import numpy as np
 
 app = Flask(__name__)
 
+# Rendering our html
 @app.route('/')
 def index():
     return render_template('index.html')
 
-
+# convert base64 to cv2 readable format
 def cv2_imread_base64(base64str):
     imgdata = base64.b64decode(base64str)
     image = np.fromstring(imgdata, dtype=np.uint8)
     image = cv2.imdecode(image, cv2.IMREAD_COLOR)
     return image
 
+# face detection using haar cascade algorithm
 def detect_face_opencv(encoded_string):
     try:
         img = cv2_imread_base64(encoded_string)
@@ -36,6 +38,7 @@ def detect_face_opencv(encoded_string):
     except:
         return encoded_string
 
+# returning our resultant detected image
 @app.route('/receive', methods=['POST'])
 def receive():
   url = request.data[22::]
