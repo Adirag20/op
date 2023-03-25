@@ -17,7 +17,7 @@
   let video = null;
   let canvas = null;
   let photo = null;
-  let startbutton = null;
+  // let startbutton = null;
 
   function showViewLiveResultButton() {
     if (window.self !== window.top) {
@@ -41,7 +41,7 @@
     video = document.getElementById("video");
     canvas = document.getElementById("canvas");
     photo = document.getElementById("photo");
-    startbutton = document.getElementById("startbutton");
+    // startbutton = document.getElementById("startbutton");
 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: false })
@@ -84,14 +84,14 @@
       false
     );
 
-    startbutton.addEventListener(
-      "click",
-      (ev) => {
-        takepicture();
-        ev.preventDefault();
-      },
-      false
-    );
+    // startbutton.addEventListener(
+    //   "click",
+    //   (ev) => {
+    //     takepicture();
+    //     ev.preventDefault();
+    //   },
+    //   false
+    // );
 
     clearphoto();
   }
