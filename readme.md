@@ -46,3 +46,7 @@ or
 ```
 docker push emmanuelallan/opencv-flask:1.4
 ```
+
+## Links of deployed apps
+* [OpenCV](https://opencv-flask-allan.azurewebsites.net/)
+* [DeepFace](https://opencv-flask.azurewebsites.net/)
