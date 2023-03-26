@@ -17,31 +17,11 @@
   let video = null;
   let canvas = null;
   let photo = null;
-  // let startbutton = null;
-
-  function showViewLiveResultButton() {
-    if (window.self !== window.top) {
-      // Ensure that if our document is in a frame, we get the user
-      // to first open it in its own tab or window. Otherwise, it
-      // won't be able to request permission for camera access.
-      document.querySelector(".contentarea").remove();
-      const button = document.createElement("button");
-      button.textContent = "View live result of the example code above";
-      document.body.append(button);
-      button.addEventListener("click", () => window.open(location.href));
-      return true;
-    }
-    return false;
-  }
 
   function startup() {
-    if (showViewLiveResultButton()) {
-      return;
-    }
     video = document.getElementById("video");
     canvas = document.getElementById("canvas");
     photo = document.getElementById("photo");
-    // startbutton = document.getElementById("startbutton");
 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: false })
@@ -83,15 +63,6 @@
       },
       false
     );
-
-    // startbutton.addEventListener(
-    //   "click",
-    //   (ev) => {
-    //     takepicture();
-    //     ev.preventDefault();
-    //   },
-    //   false
-    // );
 
     clearphoto();
   }
