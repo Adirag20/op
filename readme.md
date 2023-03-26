@@ -2,6 +2,10 @@
 
 Face detection app using OpenCV
 
+## Links of deployed apps
+* [OpenCV](https://opencv-flask-allan.azurewebsites.net/)
+* [DeepFace](https://opencv-flask.azurewebsites.net/)
+
 ### Directory Structure
 
 ```
